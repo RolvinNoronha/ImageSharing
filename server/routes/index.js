@@ -11,8 +11,6 @@ const { profile } = require("console");
 const Images = connection.models.Images;
 const Person = connection.models.Person;
 const Profile = connection.models.Profile;
-const Followers = connection.models.Followers;
-const Following = connection.models.Following;
 const path = "C:/Users/rolvi/Desktop/Projects/InstagramClone/server/public/";
 
 
@@ -160,11 +158,20 @@ router.post("/get-images", (req, res) => {
     
 });
 
+router.post("/stats", (req, res) => {
+
+    const name = req.body.username === null ? req.user.username : req.body.username;
+
+    Images.findOne({ username: name })
+        .then(user => {
+            res.json({ "images": user.images.length });
+        })
+});
+
 //    GET ROUTES    //
 router.get("/test", (req, res) => {
     res.json({ session: req.session, user: req.user});
 });
-
 
 router.get("/logout", (req, res) => {
     req.logout(function(err) {
@@ -172,6 +179,28 @@ router.get("/logout", (req, res) => {
             res.json({ msg: "Successfully Logged out"});
       });
      
+});
+
+router.get("/get-all-images", (req, res) => {
+    const name = req.user.username;
+    const IMAGES = [];
+    const allImages = new Object();
+
+    Images.find({ username: name })
+        .then((user) => {
+            if (user) {
+                
+                user[0].images.forEach(image => {
+                    IMAGES.push(fs.readFileSync(path+image));
+                });
+
+                allImages.imgs = IMAGES;
+                res.send(allImages);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
 });
 
 router.get("/is-auth", (req, res) => {

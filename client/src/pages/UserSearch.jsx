@@ -1,7 +1,6 @@
 import React from "react";
 import { NamePhoto } from "../components/NamePhoto";
 import { ProfileStats } from "../components/ProfileStats";
-import { Button } from "react-bootstrap";
 import { Images } from "../components/Images";
 import { NavbarB } from "../components/Navbar";
 import { useParams } from "react-router-dom";
@@ -13,19 +12,9 @@ export const UserSearch = () => {
 
     const [image, setImage] = useState([]);
     const [profile, setProfile] = useState();
-    const [follow, setFollow] = useState("Follow");
+    const [numImages, setNumImages] = useState(0);
 
     const slug = useParams();
-    
-    function handleClick() {
-        if (follow === "Follow") {
-            setFollow("Unfollow")
-            
-        }
-        else if (follow === "Unfollow") {
-            setFollow("Follow");
-        }
-    }
 
     useEffect(() => {
         axios.post("/get-images", { username: slug.slug })
@@ -55,6 +44,14 @@ export const UserSearch = () => {
             .catch(err => {
                 console.log(err);
             })
+        
+        axios.post("/stats", {username: slug.slug })
+            .then(res => {
+                setNumImages(res.data.images);
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }, [])
 
     return (
@@ -63,10 +60,7 @@ export const UserSearch = () => {
             <div className="profile-status"> 
                 <NamePhoto profile={profile} name={slug.slug} />
                 <div className="profile-stats">
-                    <ProfileStats />
-                    <div className="profile-buttons">
-                        <Button variant="primary" onClick={handleClick}>{follow}</Button>
-                    </div>
+                    <ProfileStats Images={numImages} />
                 </div>
             </div>
             <Images image={image} />
