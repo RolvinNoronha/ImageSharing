@@ -1,0 +1,93 @@
+
+.flex-d {
+    flex-direction: column;
+    margin-top: 14rem;
+}
+
+.search-area {
+    display: flex;
+    margin: 3rem 16% 2rem 16%;
+}
+
+.profile-status {
+    margin: 3rem 16% 2rem 16%;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid steelblue;
+    border-radius: 10px;
+}
+
+.profile-name-photo {
+    margin: inherit;
+}
+
+.profile-name-photo img {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    
+}
+
+.profile-name-photo p {
+    margin: .5rem;
+    font-size: 1.5em;
+}
+
+.profile-stats {
+    display: flex;
+    flex-direction: column;
+    margin: inherit;
+}
+
+.profile-stats-2 {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-stats-2 p {
+    margin: 1rem;
+}
+
+.profile-buttons {
+    margin: 0.5;
+}
+
+.profile-buttons button {
+    margin: 0.5rem;
+}
+
+.profile-pictures {
+    margin: 3rem 16% 2rem 16%;
+    border: 1px solid steelblue;
+    border-radius: 10px;
+}
+
+.pictures {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.pictures img {
+    height: 250px;
+    width: 250px;
+    margin: 0.5rem;
+}
+
+.image-input {
+    height: 10rem;
+    width: 10rem;
+    border: 2px solid steelblue;
+}
+
+.search-user-result {
+    margin: 3rem 16% 2rem 16%;
+    font-size: 1.2rem;
+    padding: 1.25rem;
+    border: 1px solid steelblue;
+}
+
+.search-user-result a {
+    text-decoration: none;
+}
+
